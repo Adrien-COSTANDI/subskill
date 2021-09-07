@@ -115,6 +115,7 @@ function getAllAnnonces($BDD, $get) {
         $where .= "where ";
 
         for ($filtre = 0; $filtre < count($tabFiltres); $filtre++) {
+            $where.="(";
             for ($j=0; $j < count($tabFiltres[$filtre][1]); $j++) {
 
                 $where .= "id_".$tabFiltres[$filtre][0]." = ".$tabFiltres[$filtre][1][$j];
@@ -124,11 +125,11 @@ function getAllAnnonces($BDD, $get) {
                 }
             }
             if ($filtre < count($tabFiltres)-1) {
-                $where.=" and ";
+                $where.=") and ";
             }
 
         }
-        $where .= " ";
+        $where .= ") ";
     }
 
 
