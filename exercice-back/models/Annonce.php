@@ -3,6 +3,15 @@
  * Modèle abstrait d'une annonce, lien avec la base de données
  **/
 
+
+/**
+ * crée une nouvelle annonce dans la base de données
+ * les paramètres pour la création sont passés avec $_POST
+ *
+ * @param $BDD la connexion courante
+ *
+ * @return reference la référence de l'annonce créée
+ */
 function newAnnonce($BDD) {
 	$stmt = mysqli_prepare($BDD, "
     INSERT INTO Annonce(reference, description, date_publication, date_edition, image, intitule, id_entreprise, id_ville, id_metier, id_contrat)
@@ -16,6 +25,15 @@ function newAnnonce($BDD) {
 	return $reference;
 }
 
+/**
+ * permet de récupérer tous les détails d'une annonce à partir de sa référence
+ * utile si on choisit d'afficher une annonce particulière à l'écran
+ *
+ * @param $BDD la connexion courante
+ * @param $referenceAnnonce
+ *
+ * @return annonce un objet JSON qui contient l'annonce
+ */
 function getAnnonce($BDD, $referenceAnnonce) {
 	$stmt = mysqli_prepare($BDD, "
     SELECT reference, description, date_publication, image, intitule, Entreprise.nom as nom_entreprise, Ville.nom as nom_ville, Metier.nom as nom_metier, Contrat.nom as nom_contrat
@@ -187,6 +205,13 @@ function getAllAnnonces($BDD, $get) {
 	return(json_encode($reponse));
 }
 
+/**
+ * calcule le nombre d'annonces total dans la base de données
+ *
+ * @param $BDD la connexion courante
+ *
+ * @return nbAnnonces le nombre d'annonces
+ */
 function getNbAnnonces($BDD) {
     $query = mysqli_query($BDD, "SELECT count(*) as nbAnnonces from Annonce");
 	return  mysqli_fetch_array($query)["nbAnnonces"];

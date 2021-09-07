@@ -53,7 +53,7 @@
                 foreach (json_decode(getAllMetiers($BDD)) as $metier) {
 
                     // si le filtre est utilisé, on le selectionne dans la liste
-                    if (in_array($metier->id, $tabMetiers)) {
+                    if (isset($tabMetiers) && in_array($metier->id, $tabMetiers)) {
                         echo("<option value=\"".htmlspecialchars($metier->id)."\" selected>".htmlspecialchars($metier->nom)."</option>");
                     }
                     else {
@@ -74,7 +74,7 @@
                 foreach (json_decode(getAllContrats($BDD)) as $contrat) {
 
                     // si le filtre est utilisé, on le selectionne dans la liste
-                    if (in_array($contrat->id, $tabContrats)) {
+                    if (isset($tabContrats) && in_array($contrat->id, $tabContrats)) {
                         echo("<option value=\"".htmlspecialchars($contrat->id)."\" selected>".htmlspecialchars($contrat->nom)."</option>");
                     }
                     else {
@@ -95,7 +95,7 @@
                 foreach (json_decode(getAllVilles($BDD)) as $ville) {
 
                     // si le filtre est utilisé, on le selectionne dans la liste
-                    if (in_array($ville->id, $tabVilles)) {
+                    if (isset($tabVilles) && in_array($ville->id, $tabVilles)) {
                         echo("<option value=\"".htmlspecialchars($ville->id)."\" selected>".htmlspecialchars($ville->nom)."</option>");
                     }
                     else {
@@ -136,7 +136,7 @@
         foreach ($reponse->annonces as $annonce) {
 
         ?>
-            <tr class="row">
+            <tr class="row" style="cursor: pointer;">
                 <td class="col-2">
                     <img src="<?php echo htmlspecialchars($annonce->image) ?>"  alt="image" width="100" height="100">
                 </td>
